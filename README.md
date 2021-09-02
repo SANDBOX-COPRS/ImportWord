@@ -5,5 +5,5 @@ To convert your docx file to markdown, put your file in a folder inside the inpu
 /input/S1PRO/my_file.docx  
 /input/S1PRO/my_other_file.docx
 
-Then go to the word2gfm Action page : https://github.com/SANDBOX-COPRS/ImportWord/actions/workflows/word2gfm.yml 
+Then go to the word2gfm Action page : https://github.com/SANDBOX-COPRS/ImportWord/actions/workflows/word2gfm.yml  
 And download the documentation artifact from your run.
