@@ -10,7 +10,7 @@ RUN apt update -y &&\
     apt-get autoremove --yes &&\
     rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-ENTRYPOINT ["find"]
+#ENTRYPOINT ["find"]
 
 # Show the extended help
-CMD [". -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media . -o {}.md"]
+#CMD [". -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media . -o {}.md"]
