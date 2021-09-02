@@ -9,8 +9,3 @@ RUN apt update -y &&\
     apt-get clean autoclean &&\
     apt-get autoremove --yes &&\
     rm -rf /var/lib/{apt,dpkg,cache,log}/
-
-#ENTRYPOINT ["find"]
-
-# Show the extended help
-CMD ["find . -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media . -o {}.md"]
