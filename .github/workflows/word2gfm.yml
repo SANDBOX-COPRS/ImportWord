@@ -12,8 +12,8 @@ jobs:
           
       - name: Create ODT
         uses: docker://ghcr.io/sandbox-coprs/importword:main
-        #with:
-        #  args: --table-of-contents --from=markdown --to=odt --output=output/result.odt ${{ steps.files_list.outputs.files }}          
+        with:
+          args: bash -c "find . -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media . -o {}.md"         
 
       - uses: actions/upload-artifact@master
         with:
