@@ -5,18 +5,20 @@ on:
     branches: [ main ]
 
 jobs:
-  convert_via_pandoc:
+  create_gfm_file:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2 
           
-      - name: Create ODT
+      - name: Create GitHub Flavored Markdown file
         uses: docker://ghcr.io/sandbox-coprs/importword:main
         with:
-          args: bash -c "find . -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media . -o {}.md"         
+          args: bash -c "find input -mindepth 2 -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media=input -o {}.md"         
 
       - uses: actions/upload-artifact@master
         with:
           name: documentation
           path: |
-            *.md
+            input/*/*.md
+            input/media/
+            !README.md
