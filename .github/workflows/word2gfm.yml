@@ -1,0 +1,22 @@
+name: Word2GFM
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2 
+          
+      - name: Create ODT
+        uses: docker://ghcr.io/sandbox-coprs/importword:main
+        #with:
+        #  args: --table-of-contents --from=markdown --to=odt --output=output/result.odt ${{ steps.files_list.outputs.files }}          
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: documentation
+          path: |
+            *.md
