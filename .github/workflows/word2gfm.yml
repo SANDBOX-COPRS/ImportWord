@@ -13,12 +13,27 @@ jobs:
       - name: Create GitHub Flavored Markdown file
         uses: docker://ghcr.io/sandbox-coprs/importword:main
         with:
-          args: bash -c "find input -mindepth 2 -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media=input -o {}.md"         
-
+          args: bash -c "find input -mindepth 2 -type f -name '*.docx' -print0 | xargs -0 -n2 -P2 -I{} pandoc -s {} -t gfm --extract-media=input -o {}.md"
+       
+      - name: Move media to 
+        run: |
+          path=$(find . -maxdepth 2 -mindepth 2 ! -name "media" -type d)
+          mv input/media ${path}/
+          
       - uses: actions/upload-artifact@master
         with:
           name: documentation
           path: |
-            input/*/*.md
-            input/media/
-            !README.md
+            input/*
+     
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          
+      - name: commit
+        run: |
+          # Stage the file, commit and push
+          git rm -r input/*
+          git commit -m "Restore original input folder"
+          git push origin master
