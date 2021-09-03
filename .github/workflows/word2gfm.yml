@@ -24,7 +24,8 @@ jobs:
         with:
           name: documentation
           path: |
-            input/*
+            input/*/*.md
+            input/*/media
      
       - name: setup git config
         run: |
