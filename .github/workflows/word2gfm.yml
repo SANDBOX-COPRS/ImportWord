@@ -7,6 +7,7 @@ on:
 jobs:
   create_gfm_file:
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'convert')"
     steps:
       - uses: actions/checkout@v2 
           
@@ -26,15 +27,3 @@ jobs:
           path: |
             input/*/*.md
             input/*/media
-     
-      - name: setup git config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          
-      - name: commit
-        run: |
-          # Stage the file, commit and push
-          git rm -r input/*
-          git commit -m "Restore original input folder"
-          git push origin master
